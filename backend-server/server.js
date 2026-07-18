@@ -28,7 +28,9 @@ message:"User not found"
 });
 }
 
-const admin=result[0];
+console.log(result[0]);
+
+const admin = result[0];
 
 if(password !== admin.password){
 return res.status(401).json({
