@@ -260,10 +260,12 @@ toast.success("Student Deleted Successfully!");
       "Students"
     );
 
+
     const excelBuffer = XLSX.write(workbook, {
       bookType: "xlsx",
       type: "array"
     });
+
 
 
     const file = new Blob(
@@ -277,6 +279,10 @@ toast.success("Student Deleted Successfully!");
     saveAs(file, "students.xlsx");
 
   };
+      const handleLogout = () => {
+  localStorage.removeItem("isLoggedIn");
+  setIsLoggedIn(false);
+};
   if (!isLoggedIn) {
   return <Login setIsLoggedIn={setIsLoggedIn} />;
 }
@@ -284,12 +290,15 @@ toast.success("Student Deleted Successfully!");
     <div className="container">
      
        <img className="logo"  src="https://res.cloudinary.com/deil060qy/image/upload/v1782808234/ChatGPT_Image_Jun_30_2026_01_58_26_PM_yzpieh.png" alt="logo"/>
-      <h1 className="system-title">Student Management System</h1>
-   
+      <h1 className="system-title">Student Management System</h1> 
       <br></br>
       <p className="subtitle">
         Manage Student Records Efficiently
       </p>
+      <button className="logout-btn" onClick={handleLogout}>
+  Logout
+</button> 
+<br></br>
       <div className="dashboard">
         <div className="card">
           <h2>👨‍🎓</h2>
