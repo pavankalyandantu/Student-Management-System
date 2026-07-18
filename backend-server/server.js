@@ -3,9 +3,45 @@ const db = require("./db");
 const cors = require("cors");
 
 const app = express();
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 app.use(cors());
 app.use(express.json());
+
+app.post("/login", (req,res)=>{
+
+const {username,password}=req.body;
+
+const sql="SELECT * FROM admins WHERE username=?";
+
+db.query(sql,[username],async(err,result)=>{
+
+if(err){
+return res.status(500).json(err);
+}
+
+if(result.length===0){
+return res.status(401).json({
+message:"User not found"
+});
+}
+
+const admin=result[0];
+
+if(password !== admin.password){
+return res.status(401).json({
+message:"Wrong password"
+});
+}
+
+res.json({
+message:"Login successful"
+});
+
+});
+
+});
 
 const PORT = process.env.PORT || 5000;
 
