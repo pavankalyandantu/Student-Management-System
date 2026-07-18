@@ -9,40 +9,45 @@ const jwt = require("jsonwebtoken");
 app.use(cors());
 app.use(express.json());
 
-app.post("/login", (req,res)=>{
+app.post("/login", (req, res) => {
 
-const {username,password}=req.body;
-console.log(username, password);
+  const { username, password } = req.body;
 
-const sql="SELECT * FROM admins WHERE username=?";
+  console.log("Entered:", username, password);
 
-db.query(sql,[username],async(err,result)=>{
+  const sql = "SELECT * FROM admins WHERE username=?";
 
-if(err){
-return res.status(500).json(err);
-}
+  db.query(sql, [username], (err, result) => {
 
-if(result.length===0){
-return res.status(401).json({
-message:"User not found"
-});
-}
+    if (err) {
+      console.log(err);
+      return res.status(500).json(err);
+    }
 
-console.log(result[0]);
+    console.log("Query Result:", result);
 
-const admin = result[0];
+    if (result.length === 0) {
+      return res.status(401).json({
+        message: "User not found"
+      });
+    }
 
-if(password !== admin.password){
-return res.status(401).json({
-message:"Wrong password"
-});
-}
+    const admin = result[0];
 
-res.json({
-message:"Login successful"
-});
+    console.log("DB Username:", admin.username);
+    console.log("DB Password:", admin.password);
 
-});
+    if (password !== admin.password) {
+      return res.status(401).json({
+        message: "Wrong password"
+      });
+    }
+
+    res.json({
+      message: "Login successful"
+    });
+
+  });
 
 });
 
