@@ -13,18 +13,13 @@ app.post("/login", (req, res) => {
 
   const { username, password } = req.body;
 
-  console.log("Entered:", username, password);
-
   const sql = "SELECT * FROM admins WHERE username=?";
 
   db.query(sql, [username], (err, result) => {
 
     if (err) {
-      console.log(err);
       return res.status(500).json(err);
     }
-
-    console.log("Query Result:", result);
 
     if (result.length === 0) {
       return res.status(401).json({
@@ -33,9 +28,6 @@ app.post("/login", (req, res) => {
     }
 
     const admin = result[0];
-
-    console.log("DB Username:", admin.username);
-    console.log("DB Password:", admin.password);
 
     if (password !== admin.password) {
       return res.status(401).json({
