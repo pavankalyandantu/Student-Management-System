@@ -12,6 +12,7 @@ app.use(express.json());
 app.post("/login", (req,res)=>{
 
 const {username,password}=req.body;
+console.log(username, password);
 
 const sql="SELECT * FROM admins WHERE username=?";
 
