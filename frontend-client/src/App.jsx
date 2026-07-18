@@ -5,11 +5,13 @@ import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Login from "./Login";
 
 
 function App() {
   // Student List State
   const [students, setStudents] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // Form Fields State
   const [name, setName] = useState("");
@@ -109,6 +111,7 @@ axios.get("https://student-management-backend-32ae.onrender.com/dashboard")
        
 
         getStudents();
+        getDashboard();
 
         setName("");
         setAge("");
@@ -274,7 +277,9 @@ toast.success("Student Deleted Successfully!");
     saveAs(file, "students.xlsx");
 
   };
-
+  if (!isLoggedIn) {
+  return <Login setIsLoggedIn={setIsLoggedIn} />;
+}
   return (
     <div className="container">
      
