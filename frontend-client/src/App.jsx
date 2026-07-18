@@ -45,8 +45,7 @@ function App() {
   // Get All Students
   // ===========================
   const getStudents = () => {
-    axios
-      .get("http://localhost:5000/students")
+ axios.get("https://student-management-backend-32ae.onrender.com/students")
       .then((response) => {
         console.log(response.data); // <-- Add this
         setStudents(response.data);
@@ -56,8 +55,7 @@ function App() {
       });
   };
   const getDashboard = () => {
-    axios
-      .get("http://localhost:5000/dashboard")
+axios.get("https://student-management-backend-32ae.onrender.com/dashboard")
       .then((res) => {
         console.log(res.data);
         setDashboard(res.data);
@@ -99,8 +97,7 @@ function App() {
     }
 
     setLoading(true);
-    axios
-      .post("http://localhost:5000/students", {
+   axios.post("https://student-management-backend-32ae.onrender.com/students", {
         name,
         age,
         course,
@@ -158,8 +155,7 @@ function App() {
       email,
     });
 
-    axios
-      .put(`http://localhost:5000/students/${editId}`, {
+  axios.put(`https://student-management-backend-32ae.onrender.com/students/${editId}`, {
         name,
         age,
         course,
@@ -195,8 +191,7 @@ const deleteStudent = (id) => {
     return;
   }
 
-  axios
-    .delete(`http://localhost:5000/students/${id}`)
+ axios.delete(`https://student-management-backend-32ae.onrender.com/students/${id}`)
     .then((response) => {
 
       console.log(response.data);
